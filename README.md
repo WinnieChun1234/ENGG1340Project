@@ -1,6 +1,6 @@
 ## Game Description
 
-Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square or rectangular grid. Our team intend to enhance the game in a square grid with some feathures differ from the original game, which will be explained below. Whenever it is possible, we will try developing the game in a hexagonal grid, however depends on the progress made.
+Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square or rectangular grid. Our team intend to enhance the game in a square grid with some features differ from the original game, which will be explained below. Whenever it is possible, we will try developing the game in a hexagonal grid, however depends on the progress made.
 
 #### Game Rule
 The player will be asked to whiten or blacken the cells based on the following basic rules:
@@ -9,13 +9,13 @@ The player will be asked to whiten or blacken the cells based on the following b
 *   All whitened cells should be connected horizontally or vertically with one another.
 
 #### Solving Technique
-We advise the player to solve the board the following hints:
+We advise the player to solve the board using the following hints:
 *   Whiten all cells in adjacent with a black cell horizontally and vertically.
 *   Search for two consecutive cells will same number in the same row/column, and then blacken all other cells with this number in the same row/column.
 *   Whiten all cells which blocks the white cells in connecting one another if necessary.
 *   If there are sandwich triple (three in a row), the middle one must be whitened and other two must be blackened.
 *   If there are sandwich pair (e.g. ABA) in a row, the middle one must be whitened.
-*   If four same number is situated in the conern, the black cell must go from the corner.
+*   If four same number is situated in the corner, the black cell must go from the corner.
 
 ## Features and functions
 Our version of game will be divided into three modes. 
@@ -43,7 +43,7 @@ Our version of game will be divided into three modes.
     *   Import/Export function will be implemented. User can export the game status (including the action stacks) into a file. User can export the game status into a file and end the program. Next time, user can start the program and import the file to continue the game.
 
 5.  Program codes in multiple files
-    *   There will be several files in this project, changes may be made if necessary. 
+    *   There will be several files in this project. Changes may be made if necessary. 
 	    *   cell.cpp / cell.h - contain the struct definition of the struct “cell” and functions to manipulate the cell
 	    *   action.cpp / action.h – contain the struct definition of the struct “action” and handle undo / redo action.
 	    *   export.cpp / export.h – contain the code for import / export the game status
