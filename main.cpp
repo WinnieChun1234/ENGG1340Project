@@ -442,12 +442,35 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
 void settings_screen() {
     cls();
     cout << "Current board size: " << board_size << endl;
-    cout << "New board size : ";    //TODO: limit the board size to 5-9
+    cout << "New board size : ";
     cin >> board_size;
+    
+    while(board_size < 5 || board_size > 9) {
+        cout << "The board size must be between 5 and 9." << endl;
+        cout << "Current board size: " << board_size << endl;
+        cout << "New board size : ";
+        cin >> board_size;
+    }
+    
     cout << endl;
     cout << "Current game save path: " << save_path << endl;
     cout << "New game save path: ";
     cin >> save_path;
+    
+    while(true) {
+        ofstream test_file(save_path, fstream::in | fstream::out | fstream::app);
+        
+        if(test_file.is_open()) {
+            test_file.close();
+            break;
+        }
+        
+        cout << "Invalid path" << endl;
+        cout << "Current game save path: " << save_path << endl;
+        cout << "New game save path: ";
+        cin >> save_path;
+    }
+    
     cout << "Press any key to continue" << endl;
     readkey();
 }
@@ -529,7 +552,7 @@ void load_screen() {
 void exportGame(vector<vector<Cell>> board, GAME_MODE mode) {
     string outfile_name = save_path;
     ofstream outfile;
-    outfile.open(outfile_name, ios::out); //TODO: file name from config
+    outfile.open(outfile_name, ios::out);
     outfile << board_size << endl;
     outfile << mode << endl;
     
