@@ -39,6 +39,7 @@ void settings_screen();
 void load_screen();
 void exit_screen();
 void exportGame(vector<vector<Cell>> board, GAME_MODE mode);
+void print_board(vector<vector<Cell>>);
 
 void cls() { //Clear Screen
     cout << "\033[2J\033[1;1H";
@@ -119,7 +120,154 @@ void exit_screen() {
 void start_tutorial() {
     cls();
     cout << "TODO: TUTORIAL" << endl;
-    readkey();
+
+    // create preset board
+    int presetBoard[6][6] = {5, 6, 5, 1, 2, 2,
+                             3, 2, 4, 5, 1, 3,
+                             2, 3, 2, 6, 6, 4,
+                             3, 4, 5, 6, 3, 6,
+                             4, 5, 4, 3, 2, 1,
+                             3, 4, 2, 4, 4, 5};
+    vector<vector<Cell>> board(6);
+
+    for(int i = 0; i < 6; i++) {
+        vector<Cell> m(6);
+
+        for(int j = 0; j < 6; j++) {
+            m[j].n = presetBoard[j][i];
+            m[j].status = UNMARKED;
+        }
+
+        board[i] = m;
+    }
+
+    int pageNumber = 0;
+    bool isFinished = false;
+    while(!isFinished) {
+        cls();
+
+        string temp = "";
+        switch(pageNumber) {
+            case 0:
+                temp += "The goal of the game is to blacken some cells\n";
+                temp += "such that the following rules are not violated:\n";
+                temp += "1.  No two cells should be blackened in adjacent,\n";
+                temp += "    either horizontally or vertically.\n";
+                temp += "2.  No two cells with the same number in the same\n";
+                temp += "    row/column should be whitened.\n";
+                temp += "3.  All whitened cells should be connected horizontally\n";
+                temp += "    or vertically with one another.\n";
+                temp += "\n";
+                temp += "This tutorial will provide some basic solving techniques,\n";
+                temp += "derived from the above rules. Let's get started! ^v^\n";
+                break;
+            case 1:
+                temp += "- Search for a cell in between cells with same numbers\n";
+                temp += "As the two outer cells cannot be both white (Rule 2),\n";
+                temp += "at least one of them should be black. Therefore,\n";
+                temp += "the middle cell should be marked white (Rule 1).\n";
+                for(int n : {22}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                cur_i = 22 % 6;
+                cur_j = 22 / 6;
+                break;
+            case 2:
+                temp += "- Search for a cell in between cells with same numbers\n";
+                temp += "These are all the cells that matches this pattern.\n";
+
+                for(int n : {1, 12, 13, 22, 25, 32}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                break;
+            case 3:
+                temp += "- Blacken cells in the same row/column as a white cell with the same number\n";
+                temp += "This technique is derived from Rule 2.\n";
+                for(int n : {14}) {
+                  board[n % 6][n / 6].status = BLACK;
+                }
+                cur_i = 14 % 6;
+                cur_j = 14 / 6;
+                break;
+            case 4:
+                temp += "- Blacken cells in the same row/column as a white cell with the same number\n";
+                temp += "These are all the cells that matches this pattern.\n";
+                for(int n : {14, 18}) {
+                  board[n % 6][n / 6].status = BLACK;
+                }
+                break;
+            case 5:
+                temp += "- Whiten cells adjacent to a black cell\n";
+                temp += "This technique is derived from Rule 1.\n";
+                for(int n : {15}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                cur_i = 15 % 6;
+                cur_j = 15 / 6;
+                break;
+            case 6:
+                temp += "- Whiten cells adjacent to a black cell\n";
+                temp += "These are all the cells that matches this pattern.\n";
+                for(int n : {8, 15, 19, 20, 24}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                break;
+            case 7:
+                temp += "- Blacken cells in the same row/column as a white cell with the same number\n";
+                temp += "- Whiten cells adjacent to a black cell\n";
+                temp += "These two techniques will be the most likely to be used.\n";
+                temp += "Check frequently to see if these can be applied.\n";
+                for(int n : {0, 3, 7, 10, 17, 27, 30}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                for(int n : {2, 6, 16, 21, 26, 31}) {
+                  board[n % 6][n / 6].status = BLACK;
+                }
+                break;
+            case 8:
+                temp += "- Whiten cell that will separate other white cells in two otherwise\n";
+                temp += "This technique is derived from Rule 3.\n";
+                for(int n : {33}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                cur_i = 33 % 6;
+                cur_j = 33 / 6;
+                break;
+            case 9:
+                temp += "- Whiten cell that will separate other white cells in two otherwise\n";
+                temp += "These are all the cells that matches this pattern.\n";
+                for(int n : {9, 11, 23, 33}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                break;
+            case 10:
+                temp += "There are other techniques to be discovered.\n";
+                temp += "Try to come up one on your own! ;)\n";
+                temp += "The above board is in a solved state. There may be more than\n";
+                temp += "one solved states, but any one of them will be reconized as a solution.\n";
+                temp += "\n";
+                temp += "Have fun playing Solitudo! ^o^\n";
+                for(int n : {5, 28, 29, 35}) {
+                  board[n % 6][n / 6].status = WHITE;
+                }
+                for(int n : {4, 34}) {
+                  board[n % 6][n / 6].status = BLACK;
+                }
+            default:
+                isFinished = true;
+        }
+
+        cout << "TUTORIAL MODE" << endl << endl;
+        if(pageNumber != 0) {
+            print_board(board);
+        }
+        cout << endl;
+        cout << temp << endl;
+        pageNumber++;
+        cout << "Press any key to continue." << endl;
+        readkey();
+    }
+    return;
 }
 
 void print_board(vector<vector<Cell>> board) {
