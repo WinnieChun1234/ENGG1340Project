@@ -16,6 +16,6 @@ main: main.o action.o board.o cell.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:
-rm -f main main.o action.o board.o cell.o
+	rm -f main main.o action.o board.o cell.o
 
 .PHONY: clean
