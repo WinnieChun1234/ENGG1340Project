@@ -1,6 +1,6 @@
 ## Game Description
 
-Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square or rectangular grid. Our team intend to enhance the game in a square grid with some features differ from the original game, which will be explained below. Whenever it is possible, we will try developing the game in a hexagonal grid, however depends on the progress made.
+Chun Wing Yee (Winnie) and Tsoi Ki Fu (Donald) are currently HKU student studying ENGG1340. Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square grid. We enhanced the game with hints, undo and redo function, load saved game capability. We designed the logo in ASCII art. To enjoy a bit of fun, we added some emoticon and  coloured playing board and instrustions.
 
 #### Game Rule
 The player will be asked to whiten or blacken the cells based on the following basic rules:
@@ -24,7 +24,7 @@ Our version of game will be divided into three modes.
 *   Normal mode, with undo/redo features to allow change of answers, counting the time of one game is also available.
 
 
-#### Features and Function to be implemented vis-à-vis to coding requirements
+#### Features and Function implemented vis-à-vis to coding requirements
 1.  Generation of random game sets or events.
     *   Constructing a Latin square and hence the basic of game board.
     *   Mark a random amount of cells as black without breaking the rule.
@@ -35,18 +35,26 @@ Our version of game will be divided into three modes.
     *   A vector of vector of “Cell” will be used to store a board
 
 3.  Dynamic memory management
-    *   Undo / Redo function will be implemented, with “Redo” means “un-undo”.
+    *   Undo / Redo function were implemented, with “Redo” means “un-undo”.
     *   An object of struct “action” will be dynamically created for each user action (excluding the “undo” / “redo” action.)
     *   All “action” object will be stored in the undo stack. Action object will be popped from the undo stack and pushed to the redo stack when user perform the “undo” action and vise versa for “redo” action.
+    *	Memory of those dynamically created “action” will be deallocated when undo/redo stack rest
+    
 
 4.  File input/output
-    *   Import/Export function will be implemented. User can export the game status (including the action stacks) into a file. User can export the game status into a file and end the program. Next time, user can start the program and import the file to continue the game.
+    *   Import/Export function were implemented. User can export the game status (including the action stacks) into a file. User can export the game status into a file and end the program. Next time, user can start the program and import the file to continue the game.
 
 5.  Program codes in multiple files
     *   There will be several files in this project. Changes may be made if necessary. 
 	    *   cell.cpp / cell.h - contain the struct definition of the struct “cell” and functions to manipulate the cell
 	    *   action.cpp / action.h – contain the struct definition of the struct “action” and handle undo / redo action.
-	    *   export.cpp / export.h – contain the code for import / export the game status
-	    *   generator.cpp / generator.h – contain code for board generation
-	    *   solver.cpp / solver.h – contain code for solving the board
+	    *	board.cpp / board.h - the game board generator and other utility function for checking the board
 	    *   main.cpp – the main program
+	    
+6.   Non-standard Libraries used
+	*   <termios.h> and <unistd.h> - used in the readkey() function (in main.cpp) to interact with linux terminal settings, such that we can read a key without pressing enter
+
+
+## Compilation and execution
+Use `make` to compile the program and use `./main` to execute the program. Please note that this program only support running on Linux platform with ANSI escape sequences supported terminal
+	
