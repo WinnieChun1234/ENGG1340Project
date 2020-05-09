@@ -64,19 +64,50 @@ int main(int argc, char* argv[]) {
         if(debug_mode) {
             cout << "debug mode enabled" << endl;
         }
-
         cout << endl;
-        cout << "   ██████  ▒█████   ██▓     ██▓▄▄▄█████▓ █    ██ ▓█████▄  ▒█████   " << endl;
-        cout << "▒██    ▒ ▒██▒  ██▒▓██▒    ▓██▒▓  ██▒ ▓▒ ██  ▓██▒▒██▀ ██▌▒██▒  ██▒  " << endl;
-        cout << "░ ▓██▄   ▒██░  ██▒▒██░    ▒██▒▒ ▓██░ ▒░▓██  ▒██░░██   █▌▒██░  ██▒  " << endl;
-        cout << "  ▒   ██▒▒██   ██░▒██░    ░██░░ ▓██▓ ░ ▓▓█  ░██░░▓█▄   ▌▒██   ██░  " << endl;
-        cout << "▒██████▒▒░ ████▓▒░░██████▒░██░  ▒██▒ ░ ▒▒█████▓ ░▒████▓ ░ ████▓▒░  " << endl;
-        cout << "▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ▒░▓  ░░▓    ▒ ░░   ░▒▓▒ ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░   " << endl;
-        cout << "░ ░▒  ░ ░  ░ ▒ ▒░ ░ ░ ▒  ░ ▒ ░    ░    ░░▒░ ░ ░  ░ ▒  ▒   ░ ▒ ▒░   " << endl;
-        cout << "░  ░  ░  ░ ░ ░ ▒    ░ ░    ▒ ░  ░       ░░░ ░ ░  ░ ░  ░ ░ ░ ░ ▒    " << endl;
-        cout << "      ░      ░ ░      ░  ░ ░              ░        ░        ░ ░    " << endl;
-        cout << "                                                 ░         By Winnie & Donald" << endl;
-        cout << "Select Select:" << endl;
+
+        switch (rand() % 4) {
+            case 0:
+                cout << "   ██████  ▒█████   ██▓     ██▓▄▄▄█████▓ █    ██ ▓█████▄  ▒█████   " << endl;
+                cout << "▒██    ▒ ▒██▒  ██▒▓██▒    ▓██▒▓  ██▒ ▓▒ ██  ▓██▒▒██▀ ██▌▒██▒  ██▒  " << endl;
+                cout << "░ ▓██▄   ▒██░  ██▒▒██░    ▒██▒▒ ▓██░ ▒░▓██  ▒██░░██   █▌▒██░  ██▒  " << endl;
+                cout << "  ▒   ██▒▒██   ██░▒██░    ░██░░ ▓██▓ ░ ▓▓█  ░██░░▓█▄   ▌▒██   ██░  " << endl;
+                cout << "▒██████▒▒░ ████▓▒░░██████▒░██░  ▒██▒ ░ ▒▒█████▓ ░▒████▓ ░ ████▓▒░  " << endl;
+                cout << "▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ▒░▓  ░░▓    ▒ ░░   ░▒▓▒ ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░   " << endl;
+                cout << "░ ░▒  ░ ░  ░ ▒ ▒░ ░ ░ ▒  ░ ▒ ░    ░    ░░▒░ ░ ░  ░ ▒  ▒   ░ ▒ ▒░   " << endl;
+                cout << "░  ░  ░  ░ ░ ░ ▒    ░ ░    ▒ ░  ░       ░░░ ░ ░  ░ ░  ░ ░ ░ ░ ▒    " << endl;
+                cout << "      ░      ░ ░      ░  ░ ░              ░        ░        ░ ░    " << endl;
+                break;
+            case 1:
+                cout << "  ______  _____  __     __ ______ __   __ _____    _____  " << endl;
+                cout << " /      |/     \\|  |   |  |      |  | |  |      \\ /     \\ " << endl;
+                cout << "|  _____|   _   |  |   |  |_    _|  | |  |   _   |   _   |" << endl;
+                cout << "| |_____|  | |  |  |   |  | |  | |  | |  |  | \\  |  | |  |" << endl;
+                cout << "|_____  |  |_|  |  |___|  | |  | |  |_|  |  |_/  |  |_|  |" << endl;
+                cout << " _____| |       |      |  | |  | |       |       |       |" << endl;
+                cout << "|_______|\\_____/|______|__| |__|  \\_____/|______/ \\_____/ " << endl;
+                break;
+            case 2:
+                cout << "    _|_|                             _|  _|                " << endl;
+                cout << "  _|            _|            _|_|_| _|  _|          _|    " << endl;
+                cout << "    _|     _|   _|     _|_|_|   _|   _|  _| _|_|   _|  _|  " << endl;
+                cout << "      _| _|  _| _|       _|     _|   _|  _| _|  _| _|  _|  " << endl;
+                cout << "  _|_|   _|  _| _|       _|     _|     _|   _|  _| _|  _|  " << endl;
+                cout << "         _|  _| _|_|_|   _|     _|          _|  _|   _|    " << endl;
+                cout << "           _|          _|_|_|               _|_|           " << endl;
+                break;
+            default:
+                cout << " SSSS   OOOO  LL     IIIIII TTTTTT UU  UU DDDD    OOOO  " << endl;
+                cout << "SS  SS OO  OO LL       II     TT   UU  UU DD  D  OO  OO " << endl;
+                cout << "SS     OO  OO LL       II     TT   UU  UU DD  DD OO  OO " << endl;
+                cout << " SSSS  OO  OO LL       II     TT   UU  UU DD  DD OO  OO " << endl;
+                cout << "    SS OO  OO LL       II     TT   UU  UU DD  DD OO  OO " << endl;
+                cout << "SS  SS OO  OO LL       II     TT   UU  UU DD  D  OO  OO " << endl;
+                cout << " SSSS   OOO0  LLLLLL IIIIII   TT    UUUU  DDDD    OOOO  " << endl;
+        }
+
+        cout << "                                                           By Winnie & Donald" << endl;
+        cout << "Select:" << endl;
         cout << "1. Tutorial Mode" << endl;
         cout << "2. Practice Mode" << endl;
         cout << "3. Normal Mode" << endl;
