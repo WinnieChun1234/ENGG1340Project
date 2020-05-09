@@ -34,11 +34,11 @@ int readkey() {
 
 enum GAME_MODE { PRACTICE = 1, NORMAL = 2 };
 void start_tutorial();
-void start_game(GAME_MODE, vector<vector<Cell>>* savedBoard = NULL);
+void start_game(GAME_MODE, vector<vector<Cell>>* saved_board = NULL);
 void settings_screen();
 void load_screen();
 void exit_screen();
-void exportGame(vector<vector<Cell>> board, GAME_MODE mode);
+void export_game(vector<vector<Cell>> board, GAME_MODE mode);
 void print_board(vector<vector<Cell>>);
 
 void cls() { //clear screen
@@ -155,33 +155,34 @@ void exit_screen() {
 void start_tutorial() {
     cls();
     //create preset board
-    int presetBoard[6][6] = {5, 6, 5, 1, 2, 2,
-                             3, 2, 4, 5, 1, 3,
-                             2, 3, 2, 6, 6, 4,
-                             3, 4, 5, 6, 3, 6,
-                             4, 5, 4, 3, 2, 1,
-                             3, 4, 2, 4, 4, 5};
+    int preset_board[6][6] = {5, 6, 5, 1, 2, 2,
+                              3, 2, 4, 5, 1, 3,
+                              2, 3, 2, 6, 6, 4,
+                              3, 4, 5, 6, 3, 6,
+                              4, 5, 4, 3, 2, 1,
+                              3, 4, 2, 4, 4, 5
+                             };
     vector<vector<Cell>> board(6);
 
     for(int i = 0; i < 6; i++) {
         vector<Cell> m(6);
 
         for(int j = 0; j < 6; j++) {
-            m[j].n = presetBoard[j][i];
+            m[j].n = preset_board[j][i];
             m[j].status = UNMARKED;
         }
 
         board[i] = m;
     }
 
-    int pageNumber = 0;
-    bool isFinished = false;
+    int page_number = 0;
+    bool is_finished = false;
 
-    while(!isFinished) {
+    while(!is_finished) {
         cls();
         string temp = "";
 
-        switch(pageNumber) {
+        switch(page_number) {
         case 0:
             temp += "The goal of the game is to blacken some cells\n";
             temp += "such that the following rules are not violated:\n";
@@ -310,18 +311,18 @@ void start_tutorial() {
             }
 
         default:
-            isFinished = true;
+            is_finished = true;
         }
 
         cout << "TUTORIAL MODE" << endl << endl;
 
-        if(pageNumber != 0) {
+        if(page_number != 0) {
             print_board(board);
         }
 
         cout << endl;
         cout << temp << endl;
-        pageNumber++;
+        page_number++;
         cout << "Press any key to continue." << endl;
         readkey();
     }
@@ -370,7 +371,7 @@ void print_board(vector<vector<Cell>> board) {
 }
 
 //start the game in with the game in specified mode with a saved board (if any)
-void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
+void start_game(GAME_MODE mode, vector<vector<Cell>>* saved_board) {
     cls();
     string game_mode_str;
 
@@ -383,15 +384,15 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
     cur_i = cur_j = 0;
     vector<vector<Cell>> board;
 
-    if(savedBoard == NULL) {    //generate a new board if there are no saved board
-        resetStacks();
+    if(saved_board == NULL) {    //generate a new board if there are no saved board
+        reset_stacks();
         board = generate_board(board_size, debug_mode);
     } else {
         //DO NOT reset stacks if saved board is used
-        board = *savedBoard;
+        board = *saved_board;
     }
 
-    bool showHint = false;
+    bool show_hint = false;
 
     while(1) {
         cls();
@@ -400,17 +401,17 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
         cout << endl;
 
         //check if user win, if user asked for hint, display also the result from each checking
-        if(checkRows(board, showHint) && checkColumns(board, showHint) && checkWhite(board, showHint) && checkAdjBlackCell(board, showHint)) {
+        if(check_rows(board, show_hint) && check_columns(board, show_hint) && check_white(board, show_hint) && check_adj_black_cell(board, show_hint)) {
             cout << "YOU WIN!!!" << endl;
             cout << "Press any key to exit" << endl;
             readkey();
             return ;
-        } else if(!showHint && mode == PRACTICE) {
+        } else if(!show_hint && mode == PRACTICE) {
             //for practice mode, check if all white cell connected, if yes, check also if there are any adjacent black cell
-            checkWhite(board, true)&& checkAdjBlackCell(board, true);
+            check_white(board, true)&& check_adj_black_cell(board, true);
         }
 
-        showHint = false;
+        show_hint = false;
         //display the key list
         cout << endl;
         cout << "\033[47;91mH A \033[30mLeft  \033[91mJ S \033[30mDown  \033[91mK W \033[30mUp  \033[91mL D \033[30mRight\033[91m                                           " << endl;
@@ -418,7 +419,7 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
 
         //print undo/redo stack if debug mode enabled
         if(debug_mode) {
-            printStack();
+            print_stacks();
         }
 
         //read user input
@@ -431,7 +432,7 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
                 return;
             }
         } else if(c == '?') {           //Hint
-            showHint = true;
+            show_hint = true;
         } else if(c == 'w' || c == 'k') { //UP
             if(cur_i > 0) {
                 cur_i--;
@@ -453,7 +454,7 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
         } else if(c == 'r') {       //Redo
             redo(board);
         } else if(c == 'e') {       //Export
-            exportGame(board, mode);
+            export_game(board, mode);
         } else if(c == ' ') {       //Change color
             //change the color of current cell
             Cell e = board[cur_i][cur_j];   //save a copy of the current cell
@@ -465,7 +466,7 @@ void start_game(GAME_MODE mode, vector<vector<Cell>>* savedBoard) {
             a->from = e.status;
             a->to = board[cur_i][cur_j].status;
             //add the action to the undo stack. (note: this function will also clear the redo stack)
-            addAction(a);
+            add_action(a);
         }
     }
 }
@@ -506,7 +507,7 @@ void settings_screen() {
     readkey();
 }
 
-//load saved game from file. (refer to exportGame() for the file format)
+//load saved game from file. (refer to export_game() for the file format)
 void load_screen() {
     cls();
     string infile_name = save_path;
@@ -535,7 +536,7 @@ void load_screen() {
     }
 
     cout << endl;
-    resetStacks();  //reset the undo/redo stack
+    reset_stacks();  //reset the undo/redo stack
     int n;
     infile >> n;    //get number of action in undo stack
     infile.ignore();    //ignore the \n
@@ -547,12 +548,12 @@ void load_screen() {
     for(int i = 0; i < n; i++) {
         getline(infile, s);
         //cout << "Loading action "<<s<<endl;
-        tmp1.push(stringToAction(s));
+        tmp1.push(string_to_action(s));
     }
 
     //as undo action added into tmp1 is upside-down, pop and push into the actual undo stack
     while(tmp1.size() > 0) {
-        getUndoStack()->push(tmp1.top());
+        get_undo_stack()->push(tmp1.top());
         tmp1.pop();
     }
 
@@ -565,12 +566,12 @@ void load_screen() {
     for(int i = 0; i < n; i++) {
         getline(infile, s);
         //cout << "Loading action "<<s<<endl;
-        tmp2.push(stringToAction(s));
+        tmp2.push(string_to_action(s));
     }
 
     //as redo action added into tmp1 is upside-down, pop and push into the actual undo stack
     while(tmp2.size() > 0) {
-        getRedoStack()->push(tmp2.top());
+        get_redo_stack()->push(tmp2.top());
         tmp2.pop();
     }
 
@@ -581,7 +582,7 @@ void load_screen() {
     start_game(mode, &board);
 }
 
-void exportGame(vector<vector<Cell>> board, GAME_MODE mode) {
+void export_game(vector<vector<Cell>> board, GAME_MODE mode) {
     string outfile_name = save_path;
     ofstream outfile;
     outfile.open(outfile_name, ios::out);
@@ -595,19 +596,19 @@ void exportGame(vector<vector<Cell>> board, GAME_MODE mode) {
     }
 
     outfile << endl;
-    stack<Action*> tmp1(*(getUndoStack()));
+    stack<Action*> tmp1(*(get_undo_stack()));
     outfile << tmp1.size() << endl;
 
     while(tmp1.size() > 0) {
-        outfile << actionToStr(tmp1.top());
+        outfile << action_to_string(tmp1.top());
         tmp1.pop();
     }
 
-    stack<Action*> tmp2(*(getRedoStack()));
+    stack<Action*> tmp2(*(get_redo_stack()));
     outfile << tmp2.size() << endl;
 
     while(tmp2.size() > 0) {
-        outfile << actionToStr(tmp2.top());
+        outfile << action_to_string(tmp2.top());
         tmp2.pop();
     }
 

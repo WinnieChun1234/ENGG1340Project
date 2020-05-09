@@ -12,14 +12,14 @@ typedef struct {
     cell_status to;
 } Action;
 
-void resetStacks();
-void addAction(Action* a);
+void reset_stacks();
+void add_action(Action* a);
 void undo(vector<vector<Cell>>& board);
 void redo(vector<vector<Cell>>& board);
-stack<Action*>* getUndoStack();
-stack<Action*>* getRedoStack();
-string actionToStr(Action* a);
-Action* stringToAction(string s);
-void printStack();
+stack<Action*>* get_undo_stack();
+stack<Action*>* get_redo_stack();
+string action_to_string(Action* a);
+Action* string_to_action(string s);
+void print_stacks();
 
 #endif
