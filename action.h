@@ -11,6 +11,7 @@ typedef struct {
     cell_status from;
     cell_status to;
 } Action;
+
 void resetStacks();
 void addAction(Action* a);
 void undo(vector<vector<Cell>>& board);
