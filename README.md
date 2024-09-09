@@ -1,6 +1,6 @@
 ## Game Description
 
-Chun Wing Yee (Winnie) and Tsoi Ki Fu (Donald) are currently HKU student studying ENGG1340. Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square grid. We enhanced the game with hints, undo and redo function, load saved game capability. We designed the logo in ASCII art. To enjoy a bit of fun, we added some emoticon and  coloured playing board and instrustions.
+This project is for course ENGG1340 in HKU. Our game, **Solitudo** , is a implementation of a game named HITORI. HITORI, translated as “one person” in Japanese, is a one-player puzzle game originated from Nikoli Co., Ltd., commonly played in a square grid. We enhanced the game with hints, undo and redo function, load saved game capability. We designed the logo in ASCII art. To enjoy a bit of fun, we added some emoticon and  coloured playing board and instrustions.
 
 #### Game Rule
 The player will be asked to whiten or blacken the cells based on the following basic rules:
